@@ -60,6 +60,10 @@ const Home = (props) => {
             backgroundColor: mode.PRIMARY_COLOR,
             width: '100%',
             height: '100%'
+        },
+        text:{
+            color: mode.PRIMARY_TEXT_COLOR,
+            padding: themeStyle.PADDING
         }
     })
     return (
@@ -67,20 +71,22 @@ const Home = (props) => {
             <Text style={styles.title}>Zoek jouw favoriete liedje</Text>
             <Image style={styles.image} source={require('/CrossPlatformDev/Eindopdracht-NienkeDemeyere/assets/music.jpg')}></Image>
             <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
+            {songs.length > 0 ?
             <ScrollView>
-                {songs.map(song => (
-                    <View style={styles.border} key={song.trackId}>
-                        <Text onPress={()=>goToArtist(song)}>
-                            Artist: {song.artistName}
-                        </Text>
-                        <Text onPress={()=>goToSong(song)}>
-                            Song title: {song.trackName}
-                        </Text>
-                    </View>
-                    
-                ))}
+            {songs.map(song => (
+                <View style={styles.border} key={song.trackId}>
+                    <Text style={styles.text} onPress={()=>goToArtist(song)}>
+                        Artist: {song.artistName}
+                    </Text>
+                    <Text style={styles.text} onPress={()=>goToSong(song)}>
+                        Song title: {song.trackName}
+                    </Text>
+                </View>
                 
-            </ScrollView>
+            ))}
+            
+        </ScrollView>
+            : <Text style={styles.text}>Er zijn geen liedjes gevonden voor die zoekopdracht</Text>}
         </View>
         
     );
