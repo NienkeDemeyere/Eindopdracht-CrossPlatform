@@ -7,16 +7,21 @@ import lightmodeStyle from "../styles/lightmode.style";
 import darkmodeStyle from "../styles/darkmode.style";
 
 const Home = (props) => {
-    console.log(props)
-    console.log(props.route)
-    let mode = "";
+    const [mode, setMode] = useState(lightmodeStyle)
+
+    const json = localStorage.getItem("site-dark-mode");
+    const isDarkMode = JSON.parse(json);
     
-    if(props.route.params != undefined){
-        mode = props.route.params.mode
-    }
-    else{
-        mode = lightmodeStyle
-    }
+    useEffect(()=>{
+        
+        if(isDarkMode){
+            setMode(darkmodeStyle)
+        }
+        else{
+            setMode(lightmodeStyle)
+        }
+    },[isDarkMode])
+    
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})
     }
@@ -60,6 +65,10 @@ const Home = (props) => {
             backgroundColor: mode.PRIMARY_COLOR,
             width: '100%',
             height: '100%'
+        },
+        text:{
+            color: mode.PRIMARY_TEXT_COLOR,
+            padding: themeStyle.PADDING
         }
     })
     return (
@@ -70,10 +79,10 @@ const Home = (props) => {
             <ScrollView>
                 {songs.map(song => (
                     <View style={styles.border} key={song.trackId}>
-                        <Text onPress={()=>goToArtist(song)}>
+                        <Text style={styles.text} onPress={()=>goToArtist(song)}>
                             Artist: {song.artistName}
                         </Text>
-                        <Text onPress={()=>goToSong(song)}>
+                        <Text style={styles.text} onPress={()=>goToSong(song)}>
                             Song title: {song.trackName}
                         </Text>
                     </View>

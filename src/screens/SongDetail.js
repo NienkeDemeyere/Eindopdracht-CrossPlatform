@@ -1,12 +1,26 @@
 import React from "react";
 import { ScrollView, View, Image, StyleSheet } from "react-native";
 import {ListItem, Button } from "react-native-elements";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import darkmodeStyle from "../styles/darkmode.style";
 import lightmodeStyle from "../styles/lightmode.style";
 import themeStyle from "../styles/theme.style";
 const SongDetail =(props) => {
     const [mode, setMode] = useState(lightmodeStyle)
+
+    const json = localStorage.getItem("site-dark-mode");
+    const isDarkMode = JSON.parse(json);
+    
+    useEffect(()=>{
+        
+        if(isDarkMode){
+            setMode(darkmodeStyle)
+        }
+        else{
+            setMode(lightmodeStyle)
+        }
+    },[isDarkMode])
+
     const song = props.route.params.song
     const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName} = props.route.params.song;
     {console.log(props)}
@@ -41,6 +55,9 @@ const SongDetail =(props) => {
             color : mode.SECONDARY_COLOR,
             width : themeStyle.BUTTON_WIDTH,
             height: themeStyle.BUTTON_HEIGHT
+        },
+        text:{
+            color: mode.PRIMARY_TEXT_COLOR
         }
     })
     return (

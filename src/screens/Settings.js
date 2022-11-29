@@ -1,11 +1,68 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet, Text, Button } from "react-native";
 import darkmodeStyle from "../styles/darkmode.style";
 import lightmodeStyle from "../styles/lightmode.style";
 import themeStyle from "../styles/theme.style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const Settings = (props) => {
+    // const json = localStorage.getItem("site-dark-mode");
+    // const isDarkMode = JSON.parse(json);
+
+    // const storeDarkmode = async (value) =>{
+    //     await AsyncStorage.setItem('site-dark-mode', value)
+        
+    //     console.log("success")
+    // }
+    // const [mode, setMode] = useState(lightmodeStyle);
+    // useEffect(()=>{
+    //     if(isDarkMode){
+    //         setMode(darkmodeStyle);
+    //     }
+    //     else{
+    //         setMode(lightmodeStyle);
+    //     }
+        
+    // },[isDarkMode]);
+
+    // const [darkMode, setDarkMode] = useState(false)
+    // useEffect(()=>{
+    //     console.log(darkMode);
+    //     const jsonStore = JSON.stringify(darkMode);
+    //     storeDarkmode(jsonStore)
+    //     setDarkMode(darkMode)
+    // },[darkMode])
+
+    const [darkMode, setDarkMode] = useState(false)
     const [mode, setMode] = useState(lightmodeStyle);
+
+    useEffect(()=>{
+        if(darkMode){
+            setMode(darkmodeStyle)
+        }
+        else{
+            setMode(lightmodeStyle)
+        }
+    }, [darkMode])
+
+    /*useEffect(()=>{
+        const json = localStorage.getItem("site-dark-mode");
+        const isDarkMode = JSON.parse(json);
+      
+        if(isDarkMode){
+          setDarkMode(true)
+        }
+        else{
+          setDarkMode(false)
+        }
+      }, []);*/
+      
+        useEffect(()=>{
+          const json = JSON.stringify(darkMode);
+          localStorage.setItem("site-dark-mode",json)
+        }, [darkMode]);
+
     let favoriet = null;
     if(props.route.params != undefined){
         favoriet = props.route.params.song    
@@ -46,16 +103,7 @@ const Settings = (props) => {
         <View style={styles.view}>
         
             <Text style={styles.title}>Beheer hier je instellingen</Text>
-            <Button style={styles.button} onPress={()=> {
-                setMode(darkmodeStyle)
-                props.navigation.setParams({mode: darkmodeStyle})
-                console.log(props)
-                }} title='Dark mode'/>
-            <Button style={styles.button} onPress={()=> {
-                setMode(lightmodeStyle)
-                props.navigation.setParams({mode: lightmodeStyle})
-                console.log(props)
-            }} title='Light mode'/>
+            <Button onPress={()=> setDarkMode(!darkMode)} title="Toggle DarkMode"></Button>
             <Text style={styles.subtitle}>Jouw lievelingsliedje:</Text>
             {favoriet != undefined ? <Text style={styles.text}>Lievelingsliedje: {favoriet.trackName} van {favoriet.artistName}</Text> : <Text style={styles.text}>Je hebt nog geen lievelingsliedje gekozen</Text>}
             
