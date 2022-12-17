@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Image, StyleSheet } from "react-native";
+import { ScrollView, View, Image, StyleSheet, Linking, Text } from "react-native";
 import {ListItem, Button } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 
@@ -11,7 +11,8 @@ const SongDetail =(props) => {
     const theme = useContext(themeContext)
 
     const song = props.route.params.song
-    const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName} = props.route.params.song;
+
+    const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName,previewUrl, trackViewUrl} = props.route.params.song;
     const instellenAlsFavoriet= (song) =>{
         props.navigation.navigate('Settings', {song: song})
     }
@@ -19,6 +20,12 @@ const SongDetail =(props) => {
     const goToArtist = () => {
         props.navigation.navigate('ArtistDetail',{song:song})
     }
+
+    const openUrl = (url) => {
+        Linking.openURL(url).catch(err =>
+          console.error('Fout bij openen url', err)
+        );
+      }
 
     const styles = StyleSheet.create({
         
@@ -39,7 +46,7 @@ const SongDetail =(props) => {
             height: '100%'
         },
         listitem:{
-            color: theme.SECONDARY_COLOR,
+            color: theme.PRIMARY_TEXT_COLOR,
             backgroundColor: theme.PRIMARY_COLOR
         },
         buton:{
@@ -51,6 +58,9 @@ const SongDetail =(props) => {
         },
         text:{
             color: theme.PRIMARY_TEXT_COLOR
+        },
+        link:{
+            color: theme.LINK_COLOR
         }
     })
     return (
@@ -59,51 +69,56 @@ const SongDetail =(props) => {
             <Button style={styles.button} title="Stel in als lievelingsliedje" onPress={()=> instellenAlsFavoriet(song)}/>
             <View style={styles.view}>
                 <TouchableOpacity onPress={()=> goToArtist()}>
-                <ListItem bottomDivider topDivider >
+                    <ListItem bottomDivider topDivider theme={styles.listitem}>
                     <ListItem.Content>
                         <ListItem.Title>Artist:</ListItem.Title>
                         <ListItem.Subtitle>{artistName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
-                </TouchableOpacity>
                 
-
-                <ListItem bottomDivider topDivider>
+                </TouchableOpacity>
+                <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Song:</ListItem.Title>
                         <ListItem.Subtitle>{trackName}</ListItem.Subtitle>
+                        <TouchableOpacity onPress={()=> openUrl(previewUrl)}>
+                        <Text >Klik hier om een preview te downloaden</Text>
+                        </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider>
+                <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Collection:</ListItem.Title>
                         <ListItem.Subtitle>{collectionName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider>
+                <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Prijs:</ListItem.Title>
                         <ListItem.Subtitle>{trackPrice}</ListItem.Subtitle>
+                        <TouchableOpacity onPress={()=> openUrl(trackViewUrl)}>
+                        <Text >Klik hier om een het liedje te bekijken op iTunes</Text>
+                        </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider>
+                <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Release date:</ListItem.Title>
                         <ListItem.Subtitle>{releaseDate}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider>
+                <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Land:</ListItem.Title>
                         <ListItem.Subtitle>{country}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider>
+                <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Genre:</ListItem.Title>
                         <ListItem.Subtitle>{primaryGenreName}</ListItem.Subtitle>

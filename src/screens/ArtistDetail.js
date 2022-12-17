@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from 'react';
 
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity } from "react-native";
 
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
@@ -10,11 +10,18 @@ import { useContext } from "react";
 const ArtistDetail = (props) => {
     const theme = useContext(themeContext)
 
-    const {artistName} = props.route.params.song
+    const {artistName, artistViewUrl } = props.route.params.song
 
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})
     }
+
+    const openUrl = (url) => {
+        Linking.openURL(url).catch(err =>
+          console.error('Fout bij openen url', err)
+        );
+      }
+
     const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
     const [songs, setSongs] = useState([]);
     useEffect(()=>{
@@ -52,6 +59,9 @@ const ArtistDetail = (props) => {
     return (
         <View style={styles.view}>
         <Text style={styles.title}>Alle liedjes van {artistName}</Text>
+        <TouchableOpacity onPress={()=> openUrl(artistViewUrl)}>
+            <Text >Klik hier om meer over {artistName} te weten te komen</Text>
+        </TouchableOpacity>
         <ScrollView style={styles.view}>
             <View style={styles.view}>
             
