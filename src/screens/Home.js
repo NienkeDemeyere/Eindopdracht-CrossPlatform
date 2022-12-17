@@ -5,22 +5,24 @@ import { TextInput } from "react-native";
 import themeStyle from "../styles/theme.style";
 import lightmodeStyle from "../styles/lightmode.style";
 import darkmodeStyle from "../styles/darkmode.style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = (props) => {
-    const [mode, setMode] = useState(lightmodeStyle)
-
-    const json = localStorage.getItem("site-dark-mode");
-    const isDarkMode = JSON.parse(json);
-    
+    //const [mode, setMode] = useState(lightmodeStyle)
+    const mode  = props.route.params.mode;
+    const setMode = props.route.params.setMode;
+    /*const json = localStorage.getItem('site-dark-mode')
+    const isDarkMode = JSON.parse(json);*/
+    const [state, setState] = useState("")
     useEffect(()=>{
         
-        if(isDarkMode){
+        if(mode == darkmodeStyle){
             setMode(darkmodeStyle)
         }
         else{
             setMode(lightmodeStyle)
         }
-    },[isDarkMode])
+    },[mode])
     
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})
@@ -33,10 +35,14 @@ const Home = (props) => {
     const [songTitle, changeSongTitle] = useState(''); 
     const [songs, setSongs] = useState([]);
     useEffect(() => {
+        setState("loading")
         fetch(url + songTitle).then(res => res.json()).then(data  => {
             
             setSongs(data.results);
+            setState("done")
+
         });
+
     }, [songTitle]);
     const styles = StyleSheet.create({
         input:{
@@ -76,6 +82,7 @@ const Home = (props) => {
             <Text style={styles.title}>Zoek jouw favoriete liedje</Text>
             <Image style={styles.image} source={require('/CrossPlatformDev/Eindopdracht-NienkeDemeyere/assets/music.jpg')}></Image>
             <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
+            {state=="loading" ? <Image style={styles.image} source={require("/CrossPlatformDev/Eindopdracht-NienkeDemeyere/assets/loading-gif.gif")}></Image> :
             <ScrollView>
                 {songs.map(song => (
                     <View style={styles.border} key={song.trackId}>
@@ -89,7 +96,7 @@ const Home = (props) => {
                     
                 ))}
                 
-            </ScrollView>
+            </ScrollView>}
         </View>
         
     );

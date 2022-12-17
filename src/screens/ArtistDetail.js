@@ -7,20 +7,22 @@ import lightmodeStyle from "../styles/lightmode.style";
 const ArtistDetail = (props) => {
     const {artistName} = props.route.params.song
 
-    const [mode, setMode] = useState(lightmodeStyle)
+    /*const [mode, setMode] = useState(lightmodeStyle)
 
     const json = localStorage.getItem("site-dark-mode");
-    const isDarkMode = JSON.parse(json);
+    const isDarkMode = JSON.parse(json);*/
+    const mode  = props.route.params.mode;
+    const setMode = props.route.params.setMode;
     
     useEffect(()=>{
         
-        if(isDarkMode){
+        if(mode == darkmodeStyle){
             setMode(darkmodeStyle)
         }
         else{
             setMode(lightmodeStyle)
         }
-    },[isDarkMode])
+    },[mode])
     
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})

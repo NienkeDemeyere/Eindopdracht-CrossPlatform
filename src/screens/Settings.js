@@ -34,9 +34,10 @@ const Settings = (props) => {
     //     setDarkMode(darkMode)
     // },[darkMode])
 
-    const [darkMode, setDarkMode] = useState(false)
+    //in App.js zetten en als state meegeven aan alle childobjecten. niet met local storage werken
+   /* const [darkMode, setDarkMode] = useState(false)
     const [mode, setMode] = useState(lightmodeStyle);
-
+    
     useEffect(()=>{
         if(darkMode){
             setMode(darkmodeStyle)
@@ -44,7 +45,7 @@ const Settings = (props) => {
         else{
             setMode(lightmodeStyle)
         }
-    }, [darkMode])
+    }, [darkMode])*/
 
     /*useEffect(()=>{
         const json = localStorage.getItem("site-dark-mode");
@@ -58,10 +59,22 @@ const Settings = (props) => {
         }
       }, []);*/
       
-        useEffect(()=>{
+        /*useEffect(()=>{
           const json = JSON.stringify(darkMode);
           localStorage.setItem("site-dark-mode",json)
-        }, [darkMode]);
+        }, [darkMode]);*/
+    const mode = props.route.params.mode;
+    const setMode = props.route.params.setMode;
+
+    useEffect(()=>{
+        if(mode == darkmodeStyle){
+            setMode(darkmodeStyle)
+        }
+        else{
+            setMode(lightmodeStyle)
+        }
+    }, [mode])
+    
 
     let favoriet = null;
     if(props.route.params != undefined){
@@ -103,7 +116,8 @@ const Settings = (props) => {
         <View style={styles.view}>
         
             <Text style={styles.title}>Beheer hier je instellingen</Text>
-            <Button onPress={()=> setDarkMode(!darkMode)} title="Toggle DarkMode"></Button>
+            <Button onPress={()=> setMode(mode == darkmodeStyle ? lightmodeStyle : darkmodeStyle) 
+                (console.log(mode))} title={mode==darkmodeStyle ? "Lightmode" : "Darkmode"}></Button>
             <Text style={styles.subtitle}>Jouw lievelingsliedje:</Text>
             {favoriet != undefined ? <Text style={styles.text}>Lievelingsliedje: {favoriet.trackName} van {favoriet.artistName}</Text> : <Text style={styles.text}>Je hebt nog geen lievelingsliedje gekozen</Text>}
             

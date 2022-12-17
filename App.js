@@ -9,8 +9,19 @@ import { useEffect, useState } from 'react';
 
 
 export default function App() {
+
+  const [mode, setMode] = useState(lightmodeStyle);
+  useEffect(()=>{
+    if(mode == darkmodeStyle){
+      setMode(darkmodeStyle)
+    }
+    else{
+      setMode(lightmodeStyle)
+    }
+  }, [mode])
+
   return (
-    <AppNavigator></AppNavigator>
+    <AppNavigator mode={mode} setMode={{setMode}}></AppNavigator>
   );
 }
 
