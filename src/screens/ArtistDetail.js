@@ -1,10 +1,15 @@
 import React from "react";
 import {useState, useEffect} from 'react';
+
 import { ScrollView, View, Text, StyleSheet } from "react-native";
+
 import themeStyle from "../styles/theme.style";
-import darkmodeStyle from "../styles/darkmode.style";
-import lightmodeStyle from "../styles/lightmode.style";
+import themeContext from "../styles/themeContext";
+import { useContext } from "react";
+
 const ArtistDetail = (props) => {
+    const theme = useContext(themeContext)
+
     const {artistName} = props.route.params.song
 
     const goToSong = (song) => {
@@ -24,22 +29,22 @@ const ArtistDetail = (props) => {
             alignSelf: 'center',
             fontWeight: themeStyle.WEIGHT_TITLE,
             paddingBottom: themeStyle.PADDING_BOTTOM,
-            color: mode.SECONDARY_COLOR
+            color: theme.SECONDARY_COLOR
         },
         border:{
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
             borderStyle: themeStyle.BORDER_STYLE,
             padding: themeStyle.PADDING,
-            borderColor: mode.SECONDARY_COLOR
+            borderColor: theme.SECONDARY_COLOR
         },
          
         view: {
-            backgroundColor: mode.PRIMARY_COLOR,
+            backgroundColor: theme.PRIMARY_COLOR,
             width: '100%',
             height: '100%'
         },
         text:{
-            color: mode.PRIMARY_TEXT_COLOR,
+            color: theme.PRIMARY_TEXT_COLOR,
             padding: themeStyle.PADDING
         }
         

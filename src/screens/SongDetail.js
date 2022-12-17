@@ -1,13 +1,15 @@
 import React from "react";
 import { ScrollView, View, Image, StyleSheet } from "react-native";
 import {ListItem, Button } from "react-native-elements";
-import { useState, useEffect } from "react";
-import darkmodeStyle from "../styles/darkmode.style";
-import lightmodeStyle from "../styles/lightmode.style";
+import { TouchableOpacity } from "react-native";
+
 import themeStyle from "../styles/theme.style";
-import { TouchableOpacity } from "react-native-web";
+import themeContext from "../styles/themeContext";
+import { useContext } from "react";
+
 const SongDetail =(props) => {
-   
+    const theme = useContext(themeContext)
+
     const song = props.route.params.song
     const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName} = props.route.params.song;
     const instellenAlsFavoriet= (song) =>{
@@ -24,31 +26,31 @@ const SongDetail =(props) => {
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
             borderStyle: themeStyle.BORDER_STYLE,
             padding: themeStyle.PADDING,
-            borderColor: mode.SECONDARY_COLOR
+            borderColor: theme.SECONDARY_COLOR
         },
         image:{
-            backgroundColor: mode.PRIMARY_COLOR,
+            backgroundColor: theme.PRIMARY_COLOR,
             width: 100, 
             height: 100
         }, 
         view: {
-            backgroundColor: mode.PRIMARY_COLOR,
+            backgroundColor: theme.PRIMARY_COLOR,
             width: '100%',
             height: '100%'
         },
         listitem:{
-            color: mode.SECONDARY_COLOR,
-            backgroundColor: mode.PRIMARY_COLOR
+            color: theme.SECONDARY_COLOR,
+            backgroundColor: theme.PRIMARY_COLOR
         },
         buton:{
             padding: themeStyle.PADDING,
-            backgroundColor: mode.PRIMARY_COLOR,
-            color : mode.SECONDARY_COLOR,
+            backgroundColor: theme.PRIMARY_COLOR,
+            color : theme.SECONDARY_COLOR,
             width : themeStyle.BUTTON_WIDTH,
             height: themeStyle.BUTTON_HEIGHT
         },
         text:{
-            color: mode.PRIMARY_TEXT_COLOR
+            color: theme.PRIMARY_TEXT_COLOR
         }
     })
     return (
@@ -56,7 +58,7 @@ const SongDetail =(props) => {
             <Image style={styles.image}source={{uri: artworkUrl100}}/>
             <Button style={styles.button} title="Stel in als lievelingsliedje" onPress={()=> instellenAlsFavoriet(song)}/>
             <View style={styles.view}>
-                <TouchableOpacity onPress={()=> goToArtist}>
+                <TouchableOpacity onPress={()=> goToArtist()}>
                 <ListItem bottomDivider topDivider >
                     <ListItem.Content>
                         <ListItem.Title>Artist:</ListItem.Title>

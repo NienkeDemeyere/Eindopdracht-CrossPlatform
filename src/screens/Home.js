@@ -1,13 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
 import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
 import { TextInput } from "react-native";
+
 import themeStyle from "../styles/theme.style";
-import lightmodeStyle from "../styles/lightmode.style";
-import darkmodeStyle from "../styles/darkmode.style";
+import themeContext from "../styles/themeContext";
+import { useContext } from "react";
 
 const Home = (props) => {
-    
+    const theme = useContext(themeContext)
     const [state, setState] = useState("")
     
     const goToSong = (song) => {
@@ -33,20 +35,20 @@ const Home = (props) => {
     const styles = StyleSheet.create({
         input:{
             padding: themeStyle.PADDING,
-            color: mode.PRIMARY_TEXT_COLOR
+            color: theme.PRIMARY_TEXT_COLOR
         },
         title:{
             fontSize: themeStyle.FONT_SIZE_TITLE,
             alignSelf: 'center',
             fontWeight: themeStyle.WEIGHT_TITLE,
             paddingBottom: themeStyle.PADDING_BOTTOM,
-            color: mode.SECONDARY_COLOR
+            color: theme.SECONDARY_COLOR
         },
         border:{
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
             borderStyle: themeStyle.BORDER_STYLE,
             padding: themeStyle.PADDING,
-            borderColor: mode.SECONDARY_COLOR
+            borderColor: theme.SECONDARY_COLOR
         },
         image:{
             alignSelf: 'center',
@@ -54,12 +56,12 @@ const Home = (props) => {
             height: 200
         }, 
         view: {
-            backgroundColor: mode.PRIMARY_COLOR,
+            backgroundColor: theme.PRIMARY_COLOR,
             width: '100%',
             height: '100%'
         },
         text:{
-            color: mode.PRIMARY_TEXT_COLOR,
+            color: theme.PRIMARY_TEXT_COLOR,
             padding: themeStyle.PADDING
         }
     })

@@ -7,14 +7,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Settings from "../screens/Settings";
 import lightmodeStyle from "../styles/lightmode.style";
-
+import darkmodeStyle from "../styles/darkmode.style";
 const Tab = createBottomTabNavigator();
 const StackNavigator = createNativeStackNavigator();
 
 const AppNavigator = () => {
     return (
             <Tab.Navigator>
-            <Tab.Screen name='Home' initialParams={{mode: mode, setMode: setMode}} component={HomeNavigator} options={{
+            <Tab.Screen name='Home' component={HomeNavigator} options={{
                     tabBarLabel: "Home",
                     headerShown: false,
                     tabBarIcon: ({color, size}) => (
@@ -25,7 +25,7 @@ const AppNavigator = () => {
                 }}>
 
                 </Tab.Screen>
-                <Tab.Screen name='Settings'  initialParams={{mode: mode, setMode: setMode}} component={Settings} options={{
+                <Tab.Screen name='Settings' component={Settings} options={{
                     tabBarLabel: "Instellingen",
                     headerShown: true,
                     tabBarIcon: ({color, size}) => (
