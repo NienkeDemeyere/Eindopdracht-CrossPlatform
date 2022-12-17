@@ -5,24 +5,10 @@ import { TextInput } from "react-native";
 import themeStyle from "../styles/theme.style";
 import lightmodeStyle from "../styles/lightmode.style";
 import darkmodeStyle from "../styles/darkmode.style";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = (props) => {
-    //const [mode, setMode] = useState(lightmodeStyle)
-    const mode  = props.route.params.mode;
-    const setMode = props.route.params.setMode;
-    /*const json = localStorage.getItem('site-dark-mode')
-    const isDarkMode = JSON.parse(json);*/
+    
     const [state, setState] = useState("")
-    useEffect(()=>{
-        
-        if(mode == darkmodeStyle){
-            setMode(darkmodeStyle)
-        }
-        else{
-            setMode(lightmodeStyle)
-        }
-    },[mode])
     
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})

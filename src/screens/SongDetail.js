@@ -7,23 +7,7 @@ import lightmodeStyle from "../styles/lightmode.style";
 import themeStyle from "../styles/theme.style";
 import { TouchableOpacity } from "react-native-web";
 const SongDetail =(props) => {
-    //const [mode, setMode] = useState(lightmodeStyle)
-
-    /*const json = localStorage.getItem("site-dark-mode");
-    const isDarkMode = JSON.parse(json);*/
-    
-    const mode = props.route.params.mode;
-    const setMode = props.route.params.setMode;
-    useEffect(()=>{
-        
-        if(mode == darkmodeStyle){
-            setMode(darkmodeStyle)
-        }
-        else{
-            setMode(lightmodeStyle)
-        }
-    },[mode])
-
+   
     const song = props.route.params.song
     const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName} = props.route.params.song;
     const instellenAlsFavoriet= (song) =>{
