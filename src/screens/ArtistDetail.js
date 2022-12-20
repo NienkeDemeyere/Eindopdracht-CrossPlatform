@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from 'react';
 
-import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
@@ -60,6 +60,15 @@ const ArtistDetail = (props) => {
         text:{
             color: theme.PRIMARY_TEXT_COLOR,
             padding: themeStyle.PADDING
+        },
+        albumImage:{
+            backgroundColor: theme.PRIMARY_COLOR,
+            width: 40, 
+            height: 40,
+        },
+        rowView :{
+            flexDirection: 'row',
+            
         }
         
     })
@@ -67,7 +76,7 @@ const ArtistDetail = (props) => {
         <View style={styles.view}>
         <Text style={styles.title}>Alle liedjes van {artistName}</Text>
         <TouchableOpacity onPress={()=> openUrl(artistViewUrl)}>
-            <Text >Klik hier om meer over {artistName} te weten te komen</Text>
+            <Text style={styles.text}>Klik hier om meer over {artistName} te weten te komen</Text>
         </TouchableOpacity>
         {spinner}
         <ScrollView style={styles.view}>
@@ -75,8 +84,10 @@ const ArtistDetail = (props) => {
             
             {songs.filter(song=> (song.trackName != "Undefined"))
             .map(song=> (
-                
-                <Text key={song.trackId} style={[styles.text, styles.border]} onPress={()=>goToSong(song)}>Song title: {song.trackName}</Text>
+                <View style={[styles.rowView, styles.border]} key={song.trackId} >
+                    <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
+                    <Text style={styles.text} onPress={()=>goToSong(song)}>Song title: {song.trackName}</Text>
+                </View> 
             ))}
             </View>
         </ScrollView>

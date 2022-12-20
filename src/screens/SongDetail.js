@@ -69,7 +69,7 @@ const SongDetail =(props) => {
             <Button style={styles.button} title="Stel in als lievelingsliedje" onPress={()=> instellenAlsFavoriet(song)}/>
             <View style={styles.view}>
                 <TouchableOpacity onPress={()=> goToArtist()}>
-                    <ListItem bottomDivider topDivider theme={styles.listitem}>
+                    <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Artist:</ListItem.Title>
                         <ListItem.Subtitle>{artistName}</ListItem.Subtitle>
@@ -82,7 +82,7 @@ const SongDetail =(props) => {
                         <ListItem.Title>Song:</ListItem.Title>
                         <ListItem.Subtitle>{trackName}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(previewUrl)}>
-                        <Text >Klik hier om een preview te downloaden</Text>
+                        <Text style={styles.text}>Klik hier om een preview te downloaden</Text>
                         </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>
@@ -99,7 +99,7 @@ const SongDetail =(props) => {
                         <ListItem.Title>Prijs:</ListItem.Title>
                         <ListItem.Subtitle>{trackPrice}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(trackViewUrl)}>
-                        <Text >Klik hier om een het liedje te bekijken op iTunes</Text>
+                        <Text style={styles.text}>Klik hier om een het liedje te bekijken op iTunes</Text>
                         </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>

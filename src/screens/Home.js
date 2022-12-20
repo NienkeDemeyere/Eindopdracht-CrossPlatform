@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import { ScrollView, View, Text, StyleSheet, Image, Button, ActivityIndicator } from "react-native";
 import { TextInput } from "react-native";
+import CustomButton from "../config/customButton";
 
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
@@ -56,8 +57,9 @@ const Home = (props) => {
 
     const styles = StyleSheet.create({
         input:{
-            padding: themeStyle.PADDING,
-            color: theme.PRIMARY_TEXT_COLOR
+           padding: themeStyle.PADDING,
+            color: theme.PRIMARY_TEXT_COLOR,
+            flex : 4
         },
         title:{
             fontSize: themeStyle.FONT_SIZE_TITLE,
@@ -66,6 +68,7 @@ const Home = (props) => {
             paddingBottom: themeStyle.PADDING_BOTTOM,
             color: theme.SECONDARY_COLOR,
         },
+       
         border:{
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
             borderStyle: themeStyle.BORDER_STYLE,
@@ -79,44 +82,46 @@ const Home = (props) => {
         }, 
         view: {
             backgroundColor: theme.PRIMARY_COLOR,
-            width : '100%',
-            height : '100%'
+            flex:1
         },
         text:{
             color: theme.PRIMARY_TEXT_COLOR,
             padding: themeStyle.PADDING,
+            flex : 1
         },
         error:{
             color: 'red',
             fontSize: 20,
             fontWeight : 'bold',
-
         },
         albumImage:{
             backgroundColor: theme.PRIMARY_COLOR,
             width: 80, 
             height: 80,
         },
-        itemView : {
-            flex: 1,
+        rowView : {
             flexDirection: 'row',
         },
         columView :{
-            flex: 1,
-            flexDirection: 'column'
+            flexDirection: 'column',
+            
         }
+         
     })
     return (
         <View style={styles.view}>
             <Text style={styles.title}>Zoek jouw favoriete liedje</Text>
             <Image style={styles.image} source={require('../../assets/music.jpg')}></Image>
-            <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
-            <Button title="Zoek" onPress={onSearchPressed}/>
+            <View style={styles.rowView}>
+                <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
+                <CustomButton onPressed={onSearchPressed}>Zoek</CustomButton>
+            </View>
+            
             {spinner}
             <Text style={styles.error}>{message}</Text>
             <ScrollView>
                 {songs.map(song => (
-                    <View style={[styles.border, styles.itemView]} key={song.trackId}>
+                    <View style={[styles.border, styles.rowView]} key={song.trackId}>
                         <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
                         <View style={styles.columView}>
                         <Text style={styles.text} onPress={()=>goToArtist(song)}>

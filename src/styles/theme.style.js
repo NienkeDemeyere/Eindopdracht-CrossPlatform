@@ -7,7 +7,8 @@ export default {
     PADDING: 5,
     PADDING_BOTTOM: 5,
     BUTTON_WIDTH: 50,
-    BUTTON_HEIGHT: 40
+    BUTTON_HEIGHT: 40,
+    PRIMARY_COLOR : 'blue'
 }
 // light mode color : #C5B3E5
 // dark mode color : #4D2D86
