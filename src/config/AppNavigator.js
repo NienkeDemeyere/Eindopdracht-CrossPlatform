@@ -6,8 +6,7 @@ import SongDetail from "../screens/SongDetail";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Settings from "../screens/Settings";
-import lightmodeStyle from "../styles/lightmode.style";
-import darkmodeStyle from "../styles/darkmode.style";
+
 const Tab = createBottomTabNavigator();
 const StackNavigator = createNativeStackNavigator();
 
@@ -27,7 +26,7 @@ const AppNavigator = () => {
                 </Tab.Screen>
                 <Tab.Screen name='Settings' component={Settings} options={{
                     tabBarLabel: "Instellingen",
-                    headerShown: true,
+                    headerShown: false,
                     tabBarIcon: ({color, size}) => (
                         <Ionicons
                         name= 'settings'
@@ -46,8 +45,13 @@ const HomeNavigator = () => {
     return (
         <StackNavigator.Navigator>
             <StackNavigator.Screen name="Home" component={Home}/>
-            <StackNavigator.Screen name="ArtistDetail" component={ArtistDetail}/>
-            <StackNavigator.Screen name="SongDetail" component={SongDetail}/>
+            <StackNavigator.Screen name="ArtistDetail" component={ArtistDetail} options={({route}) => ({
+                title : `Over ${route.params.song.artistName}`
+            })}/>
+
+            <StackNavigator.Screen name="SongDetail" component={SongDetail} options={({route}) => ({
+                title : `Over ${route.params.song.trackName} door ${route.params.song.artistName}`
+            })}/>
             <StackNavigator.Screen name="Settings" component={Settings}/>
         </StackNavigator.Navigator>
     )
