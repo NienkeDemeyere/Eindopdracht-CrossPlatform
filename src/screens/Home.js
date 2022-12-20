@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Image, Button, ActivityIndicator } from "react-native";
 import { TextInput } from "react-native";
 
 import themeStyle from "../styles/theme.style";
@@ -10,28 +10,50 @@ import { useContext } from "react";
 
 const Home = (props) => {
     const theme = useContext(themeContext)
-    const [state, setState] = useState("")
+
+    const [state, setState] = useState(false)
+    const [message, setMessage] = useState("")
+    const [songTitle, changeSongTitle] = useState(''); 
+    const [songs, setSongs] = useState([]);
+
+    const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
     
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})
     }
+
     const goToArtist = (song) => {
         props.navigation.navigate('ArtistDetail',{song:song})
     }
-    const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
-    
-    const [songTitle, changeSongTitle] = useState(''); 
-    const [songs, setSongs] = useState([]);
-    useEffect(() => {
-        setState("loading")
+
+    const onSearchPressed = ()=>{
+        setState(true)
+        setMessage("")
         fetch(url + songTitle).then(res => res.json()).then(data  => {
-            
-            setSongs(data.results);
-            setState("done")
+            if(data.results && data.results.length > 0 ){
+                setSongs(data.results);
+            }
+            else if (data.results){
+                setSongs([])
+                setMessage("Geen liedjes gevonden")
+            }
+            else{
+                setMessage("Onbestaande artiest of liedje ingevuld.")
+            }
 
+            setState(false)
+
+        }).catch(error =>{
+            setState(false)
+            setMessage(`Er ging iets fout bij het ophalen van de liedjes: ${error}`)
         });
+    }
+    const spinner = state ? (
+        <View>
+            <ActivityIndicator size="large" color={theme.SECONDARY_COLOR}/>
+        </View>
+    ) : null;
 
-    }, [songTitle]);
     const styles = StyleSheet.create({
         input:{
             padding: themeStyle.PADDING,
@@ -63,14 +85,21 @@ const Home = (props) => {
         text:{
             color: theme.PRIMARY_TEXT_COLOR,
             padding: themeStyle.PADDING
+        },
+        error:{
+            color: 'red',
+            fontSize: 20,
+            fontWeight : 'bold'
         }
     })
     return (
         <View style={styles.view}>
             <Text style={styles.title}>Zoek jouw favoriete liedje</Text>
-            <Image style={styles.image} source={require('/CrossPlatformDev/Eindopdracht-NienkeDemeyere/assets/music.jpg')}></Image>
+            <Image style={styles.image} source={require('../../assets/music.jpg')}></Image>
             <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
-            {state=="loading" ? <Image style={styles.image} source={require("/CrossPlatformDev/Eindopdracht-NienkeDemeyere/assets/loading-gif.gif")}></Image> :
+            <Button title="Zoek" onPress={onSearchPressed}/>
+            {spinner}
+            <Text style={styles.error}>{message}</Text>
             <ScrollView>
                 {songs.map(song => (
                     <View style={styles.border} key={song.trackId}>
@@ -80,11 +109,10 @@ const Home = (props) => {
                         <Text style={styles.text} onPress={()=>goToSong(song)}>
                             Song title: {song.trackName}
                         </Text>
-                    </View>
-                    
+                    </View> 
                 ))}
                 
-            </ScrollView>}
+            </ScrollView>
         </View>
         
     );
