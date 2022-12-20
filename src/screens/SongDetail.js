@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, View, Image, StyleSheet, Linking, Text } from "react-native";
 import {ListItem, Button } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
-
+import CustomButton from "../config/customButton";
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
@@ -66,7 +66,7 @@ const SongDetail =(props) => {
     return (
         <ScrollView style={styles.view}>
             <Image style={styles.image}source={{uri: artworkUrl100}}/>
-            <Button style={styles.button} title="Stel in als lievelingsliedje" onPress={()=> instellenAlsFavoriet(song)}/>
+            <CustomButton onPressed={()=> instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>
             <View style={styles.view}>
                 <TouchableOpacity onPress={()=> goToArtist()}>
                     <ListItem bottomDivider topDivider theme={theme}>
@@ -97,9 +97,9 @@ const SongDetail =(props) => {
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title>Prijs:</ListItem.Title>
-                        <ListItem.Subtitle>{trackPrice}</ListItem.Subtitle>
+                        <ListItem.Subtitle>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(trackViewUrl)}>
-                        <Text style={styles.text}>Klik hier om een het liedje te bekijken op iTunes</Text>
+                        <Text style={styles.text}>Klik hier om een het liedje te bekijken op Apple Music</Text>
                         </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>
