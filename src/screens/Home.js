@@ -64,7 +64,7 @@ const Home = (props) => {
             alignSelf: 'center',
             fontWeight: themeStyle.WEIGHT_TITLE,
             paddingBottom: themeStyle.PADDING_BOTTOM,
-            color: theme.SECONDARY_COLOR
+            color: theme.SECONDARY_COLOR,
         },
         border:{
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
@@ -75,21 +75,35 @@ const Home = (props) => {
         image:{
             alignSelf: 'center',
             width: 400, 
-            height: 200
+            height: 200,
         }, 
         view: {
             backgroundColor: theme.PRIMARY_COLOR,
-            width: '100%',
-            height: '100%'
+            width : '100%',
+            height : '100%'
         },
         text:{
             color: theme.PRIMARY_TEXT_COLOR,
-            padding: themeStyle.PADDING
+            padding: themeStyle.PADDING,
         },
         error:{
             color: 'red',
             fontSize: 20,
-            fontWeight : 'bold'
+            fontWeight : 'bold',
+
+        },
+        albumImage:{
+            backgroundColor: theme.PRIMARY_COLOR,
+            width: 80, 
+            height: 80,
+        },
+        itemView : {
+            flex: 1,
+            flexDirection: 'row',
+        },
+        columView :{
+            flex: 1,
+            flexDirection: 'column'
         }
     })
     return (
@@ -102,13 +116,16 @@ const Home = (props) => {
             <Text style={styles.error}>{message}</Text>
             <ScrollView>
                 {songs.map(song => (
-                    <View style={styles.border} key={song.trackId}>
+                    <View style={[styles.border, styles.itemView]} key={song.trackId}>
+                        <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
+                        <View style={styles.columView}>
                         <Text style={styles.text} onPress={()=>goToArtist(song)}>
                             Artist: {song.artistName}
                         </Text>
                         <Text style={styles.text} onPress={()=>goToSong(song)}>
                             Song title: {song.trackName}
                         </Text>
+                        </View>
                     </View> 
                 ))}
                 
