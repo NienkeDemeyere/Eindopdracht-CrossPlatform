@@ -8,9 +8,11 @@ import CustomButton from "../config/customButton";
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
+import favorietContext from "../config/favorietContext";
 
 const Home = (props) => {
     const theme = useContext(themeContext)
+    const favoriet = useContext(favorietContext)
 
     const [state, setState] = useState(false)
     const [message, setMessage] = useState("")
@@ -83,6 +85,10 @@ const Home = (props) => {
             alignSelf: 'center',
             width: 400, 
             height: 200,
+        },
+        starimage:{
+            height: 30,
+            width:30,
         }, 
         view: {
             backgroundColor: theme.PRIMARY_COLOR,
@@ -108,7 +114,6 @@ const Home = (props) => {
         },
         columView :{
             flexDirection: 'column',
-            
         }
          
     })
@@ -118,7 +123,7 @@ const Home = (props) => {
             <Image style={styles.image} source={require('../../assets/music.jpg')}></Image>
             <View style={styles.rowView}>
                 <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
-                <CustomButton onPressed={onSearchPressed}>Zoek</CustomButton>
+                <CustomButton style={{flex:2}} onPressed={onSearchPressed}>Zoek</CustomButton>
             </View>
             
             {spinner}
@@ -128,13 +133,15 @@ const Home = (props) => {
                     <View style={[styles.border, styles.rowView]} key={song.trackId}>
                         <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
                         <View style={styles.columView}>
-                        <Text style={styles.text} onPress={()=>goToArtist(song)}>
+                            <Text style={styles.text} onPress={()=>goToArtist(song)}>
                             Artist: {song.artistName}
-                        </Text>
-                        <Text style={styles.text} onPress={()=>goToSong(song)}>
+                            </Text>
+                            <Text style={styles.text} onPress={()=>goToSong(song)}>
                             Song title: {song.trackName}
-                        </Text>
+                            </Text>
                         </View>
+                        {song == favoriet ? <Image style={styles.starimage} source={require('../../assets/staricon.png')}/> : null}
+                        
                     </View> 
                 ))}
                 

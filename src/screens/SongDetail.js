@@ -1,20 +1,25 @@
 import React from "react";
+import { useContext } from "react";
+
 import { ScrollView, View, Image, StyleSheet, Linking, Text } from "react-native";
 import {ListItem, Button } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
+
+import { EventRegister } from 'react-native-event-listeners';
+import favorietContext from "../config/favorietContext";
+
 import CustomButton from "../config/customButton";
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
-import { useContext } from "react";
 
 const SongDetail =(props) => {
     const theme = useContext(themeContext)
-
+    const favoriet = useContext(favorietContext)
     const song = props.route.params.song
-
     const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName,previewUrl, trackViewUrl} = props.route.params.song;
     const instellenAlsFavoriet= (song) =>{
-        props.navigation.navigate('Settings', {song: song})
+        props.navigation.navigate('Settings')
+        EventRegister.emit("changeFavorite", song)
     }
 
     const goToArtist = () => {
@@ -66,21 +71,21 @@ const SongDetail =(props) => {
     return (
         <ScrollView style={styles.view}>
             <Image style={styles.image}source={{uri: artworkUrl100}}/>
-            <CustomButton onPressed={()=> instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>
+            <CustomButton onPressed={()=>instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>
             <View style={styles.view}>
                 <TouchableOpacity onPress={()=> goToArtist()}>
                     <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Artist:</ListItem.Title>
-                        <ListItem.Subtitle>{artistName}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Artist:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{artistName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
                 
                 </TouchableOpacity>
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Song:</ListItem.Title>
-                        <ListItem.Subtitle>{trackName}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Song:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{trackName}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(previewUrl)}>
                         <Text style={styles.text}>Klik hier om een preview te downloaden</Text>
                         </TouchableOpacity>
@@ -89,15 +94,15 @@ const SongDetail =(props) => {
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Collection:</ListItem.Title>
-                        <ListItem.Subtitle>{collectionName}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Collection:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{collectionName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Prijs:</ListItem.Title>
-                        <ListItem.Subtitle>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Prijs:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(trackViewUrl)}>
                         <Text style={styles.text}>Klik hier om een het liedje te bekijken op Apple Music</Text>
                         </TouchableOpacity>
@@ -106,22 +111,22 @@ const SongDetail =(props) => {
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Release date:</ListItem.Title>
-                        <ListItem.Subtitle>{releaseDate}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Release date:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{releaseDate}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Land:</ListItem.Title>
-                        <ListItem.Subtitle>{country}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Land:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{country}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title>Genre:</ListItem.Title>
-                        <ListItem.Subtitle>{primaryGenreName}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Genre:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{primaryGenreName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
             </View>

@@ -1,10 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import Home from "../screens/Home";
 import ArtistDetail from "../screens/ArtistDetail";
 import SongDetail from "../screens/SongDetail";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Settings from "../screens/Settings";
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +23,7 @@ const AppNavigator = () => {
                         color ={color} size={size}/>
                     ),
                 }}>
-
+                    
                 </Tab.Screen>
                 <Tab.Screen name='Settings' component={Settings} options={{
                     tabBarLabel: "Instellingen",
@@ -49,10 +50,11 @@ const HomeNavigator = () => {
                 title : `Over ${route.params.song.artistName}`
             })}/>
 
-            <StackNavigator.Screen name="SongDetail" component={SongDetail} options={({route}) => ({
+            <StackNavigator.Screen name="SongDetail"  component={SongDetail} options={({route}) => ({
                 title : `Over ${route.params.song.trackName} door ${route.params.song.artistName}`
             })}/>
-            <StackNavigator.Screen name="Settings" component={Settings}/>
+            
+            
         </StackNavigator.Navigator>
     )
 }

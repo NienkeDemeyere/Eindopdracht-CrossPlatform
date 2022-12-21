@@ -5,18 +5,19 @@ import { View, StyleSheet, Text, Button } from "react-native";
 import { Switch } from "react-native-elements";
 
 import { EventRegister } from 'react-native-event-listeners';
+import favorietContext from "../config/favorietContext";
 
 import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
 
-const Settings = (props) => {
+const Settings = () => {
     const theme = useContext(themeContext)
+    const favoriet = useContext(favorietContext)
+
+    console.log(favoriet)
+
     const [mode, setMode] = useState(false)
-    let favoriet = null;
-    if(props.route.params != undefined){
-        favoriet = props.route.params.song    
-    }
     
     const styles = StyleSheet.create({
         title:{
