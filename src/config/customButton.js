@@ -11,6 +11,7 @@ const CustomButton = ({ children, onPressed, height = 36, style }) => {
       backgroundColor: theme.SECONDARY_COLOR,
       justifyContent: 'center',
       alignItems: 'center',
+      padding : themeStyle.PADDING
     },
     buttonText: {
       fontSize: themeStyle.FONT_SIZE_LARGE,

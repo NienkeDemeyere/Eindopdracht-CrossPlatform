@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 
 import { ScrollView, View, Image, StyleSheet, Linking, Text } from "react-native";
-import {ListItem, Button } from "react-native-elements";
+import {ListItem } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
 
 import { EventRegister } from 'react-native-event-listeners';
@@ -49,7 +49,8 @@ const SongDetail =(props) => {
         image:{
             backgroundColor: theme.PRIMARY_COLOR,
             width: 100, 
-            height: 100
+            height: 100,
+            padding : themeStyle.PADDING
         }, 
         view: {
             backgroundColor: theme.PRIMARY_COLOR,
@@ -60,7 +61,7 @@ const SongDetail =(props) => {
             color: theme.PRIMARY_TEXT_COLOR,
             backgroundColor: theme.PRIMARY_COLOR
         },
-        buton:{
+        button:{
             padding: themeStyle.PADDING,
             backgroundColor: theme.PRIMARY_COLOR,
             color : theme.SECONDARY_COLOR,
@@ -72,12 +73,25 @@ const SongDetail =(props) => {
         },
         link:{
             color: theme.LINK_COLOR
+        },
+        starimage:{
+            height: 30,
+            width:30,
+            padding : themeStyle.PADDING
+        },
+        rowView:{
+            flexDirection :  "row",
+            padding : themeStyle.PADDING
         }
     })
     return (
         <ScrollView style={styles.view}>
-            <Image style={styles.image}source={{uri: artworkUrl100}}/>
-            <CustomButton onPressed={()=>instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>
+            <View style={styles.rowView}>
+
+            
+            <Image style={styles.image} source={{uri: artworkUrl100}}/>
+            {favoriet != undefined && song.trackId == favoriet.trackId ? <Image style={styles.starimage} source={require('../../assets/staricon.png')}/> : <CustomButton onPressed={()=>instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>}
+            </View>
             <View style={styles.view}>
                 <TouchableOpacity onPress={()=> goToArtist()}>
                     <ListItem bottomDivider topDivider theme={theme}>
@@ -88,7 +102,7 @@ const SongDetail =(props) => {
                 </ListItem>
                 
                 </TouchableOpacity>
-                <ListItem bottomDivider topDivider theme={theme}>
+                <ListItem bottomDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Titel van het nummer:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{trackName}</ListItem.Subtitle>
@@ -98,14 +112,14 @@ const SongDetail =(props) => {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider theme={theme}>
+                <ListItem bottomDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Collectie:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{collectionName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider theme={theme}>
+                <ListItem bottomDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Prijs:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
@@ -115,21 +129,21 @@ const SongDetail =(props) => {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider theme={theme}>
+                <ListItem bottomDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Publicatiedatum:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{formatDate(releaseDate)}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider theme={theme}>
+                <ListItem bottomDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Land:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{country}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider topDivider theme={theme}>
+                <ListItem bottomDivider theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Genre:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{primaryGenreName}</ListItem.Subtitle>

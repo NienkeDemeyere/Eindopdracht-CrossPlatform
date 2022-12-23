@@ -19,10 +19,6 @@ const Home = (props) => {
     const [songTitle, changeSongTitle] = useState(''); 
     const [songs, setSongs] = useState([]);
 
-    /*info over de url: [website]/[zoek]?[enkel liedjes]&[toon max 200 resutlaten]&[zoekterm=songTitle]
-      enkel liedjes: want je kan ook boeken en films vinden
-      max 200 resultaten: standaard staat het op 100
-      zoekterm=songTitle: wordt later ingevuld*/
     const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
     
     const goToSong = (song) => {
