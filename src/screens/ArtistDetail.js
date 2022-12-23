@@ -7,11 +7,12 @@ import themeStyle from "../styles/theme.style";
 
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
+import favorietContext from "../config/favorietContext";
 
 const ArtistDetail = (props) => {
     
     const theme = useContext(themeContext)
-
+    const favoriet = useContext(favorietContext)
     const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
 
     const [state, setState] = useState(false)
@@ -80,6 +81,11 @@ const ArtistDetail = (props) => {
         },
         rowView :{
             flexDirection: 'row',
+        },
+        starimage:{
+            height: 25,
+            width: 25,
+            padding : themeStyle.PADDING
         }
     })
     
@@ -98,6 +104,7 @@ const ArtistDetail = (props) => {
                 <View style={[styles.rowView, styles.border]} key={song.trackId} >
                     <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
                     <Text style={styles.text} onPress={()=>goToSong(song)}>Titel van het nummer: {song.trackName}</Text>
+                    {favoriet != undefined && song.trackId == favoriet.trackId ? <Image style={[styles.starimage, {alignSelf: "center"}]} source={require('../../assets/staricon.png')}/> : null}
                 </View> 
             ))}
             </View>
