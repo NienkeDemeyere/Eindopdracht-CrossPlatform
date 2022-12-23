@@ -28,8 +28,9 @@ const AppNavigator = () => {
                     
                 </Tab.Screen>
                 <Tab.Screen name='Settings' component={Settings} options={{
-                    tabBarLabel: "Instellingen",
+                    //tabBarLabel: "Instellingen",
                     headerShown: true,
+                    headerTitle :"Instellingen",
                     tabBarIcon: ({color, size}) => (
                         <Ionicons
                         name= 'settings'
