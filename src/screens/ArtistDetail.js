@@ -9,11 +9,22 @@ import { useContext } from "react";
 
 const ArtistDetail = (props) => {
     const theme = useContext(themeContext)
+
+    const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
+
     const [state, setState] = useState(false)
+    const [songs, setSongs] = useState([]);
+
     const {artistName, artistViewUrl } = props.route.params.song
 
     const goToSong = (song) => {
         props.navigation.navigate('SongDetail', {song:song})
+    }
+
+    const openUrl = (url) => {
+        Linking.openURL(url).catch(err =>
+          console.error('Fout bij openen url', err)
+        );
     }
 
     const spinner = state ? (
@@ -21,22 +32,17 @@ const ArtistDetail = (props) => {
             <ActivityIndicator size="large" color={theme.SECONDARY_COLOR}/>
         </View>
     ) : null;
-    const openUrl = (url) => {
-        Linking.openURL(url).catch(err =>
-          console.error('Fout bij openen url', err)
-        );
-      }
+    
 
-    const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
-    const [songs, setSongs] = useState([]);
     useEffect(()=>{
         setState(true)
         fetch(url+artistName).then(res => res.json()).then(data =>{
                 console.log(data)
-        setSongs(data.results);
-        setState(false)
+            setSongs(data.results);
+            setState(false)
         });
     },[artistName]);
+    
     const styles = StyleSheet.create({
         title:{
             fontSize: themeStyle.FONT_SIZE_TITLE,
@@ -49,7 +55,7 @@ const ArtistDetail = (props) => {
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
             borderStyle: themeStyle.BORDER_STYLE,
             padding: themeStyle.PADDING,
-            borderColor: theme.SECONDARY_COLOR
+            borderColor: theme.BOTTOM_BORDER_COLOR
         },
          
         view: {

@@ -3,6 +3,8 @@ export default {
     SECONDARY_COLOR: '#472D86',
     PRIMARY_TEXT_COLOR: 'black',
     LINK_COLOR: "07aefa",
+    BOTTOM_BORDER_COLOR: 'black',
+
 }
 // light mode color : #DAD1F1
 // dark mode color : #472D86

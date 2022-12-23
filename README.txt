@@ -5,7 +5,12 @@ info over de url van de api: 'https://itunes.apple.com/search?media=music&limit=
       zoekterm=songTitle: wordt ingevuld in het input veld op de home pagina
 github repo: https://github.com/NienkeDemeyere/Eindopdracht-CrossPlatform
 
-Handleiding;
+Om deze applicatie te kunnen starten, moet je eerst de node modules binnen halen.
+dit doe je door het commando 'npm i' uit te voeren
+
+daarna kan je de applicatie starten met het commando 'expo start'
+
+Handleiding:
 wanneer je de app start, kom je op het Homescherm.
       Home
             daar kan je een zoekterm invullen. de zoekterm bevat het liedje dat je zoekt, of de artiest die je zoekt.
@@ -16,7 +21,7 @@ wanneer je de app start, kom je op het Homescherm.
             als er wel liedjes gevonden werden, worden deze nu in een lijst getoond.
             je ziet de albumcover, de naam van de artiest, en de naam van het liedje
             als je op de naam van de artiest klikt, word je naar een volgend scherm gebracht "ArtistDetail"
-            als je op de naam van het liedjes klikt, word je naar een volgend scherm gebracht "SongDetail"
+            als je op de naam van het liedje klikt, word je naar een volgend scherm gebracht "SongDetail"
       ArtistDetail
             Alle liedjes van deze artiest worden ingeladen.
             je kan ook klikken op de link "Klik hier om meer over [artiest] te weten te komen."

@@ -40,11 +40,19 @@ const SongDetail =(props) => {
     }
     const styles = StyleSheet.create({
         
-        border:{
+        bottomBorder:{
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
+            borderColor : theme.BOTTOM_BORDER_COLOR,
             borderStyle: themeStyle.BORDER_STYLE,
             padding: themeStyle.PADDING,
             borderColor: theme.SECONDARY_COLOR
+        },
+        topBorder:{
+            borderTopColor : theme.BOTTOM_BORDER_COLOR,
+            borderTopWidth: themeStyle.BOTTOM_BORDER_SIZE,
+            borderColor : theme.BOTTOM_BORDER_COLOR,
+            borderStyle: themeStyle.BORDER_STYLE,
+            padding: themeStyle.PADDING
         },
         image:{
             backgroundColor: theme.PRIMARY_COLOR,
@@ -81,7 +89,8 @@ const SongDetail =(props) => {
         },
         rowView:{
             flexDirection :  "row",
-            padding : themeStyle.PADDING
+            padding : themeStyle.PADDING,
+            justifyContent: "center"
         }
     })
     return (
@@ -90,11 +99,11 @@ const SongDetail =(props) => {
 
             
             <Image style={styles.image} source={{uri: artworkUrl100}}/>
-            {favoriet != undefined && song.trackId == favoriet.trackId ? <Image style={styles.starimage} source={require('../../assets/staricon.png')}/> : <CustomButton onPressed={()=>instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>}
+            {favoriet != undefined && song.trackId == favoriet.trackId ? <Image style={[styles.starimage, {alignSelf: "center"}]} source={require('../../assets/staricon.png')}/> : <CustomButton style={{alignSelf:"center"}} onPressed={()=>instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>}
             </View>
             <View style={styles.view}>
                 <TouchableOpacity onPress={()=> goToArtist()}>
-                    <ListItem bottomDivider topDivider theme={theme}>
+                    <ListItem style={[styles.bottomBorder, styles.topBorder]} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Artiest:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{artistName}</ListItem.Subtitle>
@@ -102,7 +111,7 @@ const SongDetail =(props) => {
                 </ListItem>
                 
                 </TouchableOpacity>
-                <ListItem bottomDivider theme={theme}>
+                <ListItem style={styles.bottomBorder} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Titel van het nummer:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{trackName}</ListItem.Subtitle>
@@ -112,14 +121,14 @@ const SongDetail =(props) => {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider theme={theme}>
+                <ListItem style={styles.bottomBorder} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Collectie:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{collectionName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider theme={theme}>
+                <ListItem style={styles.bottomBorder} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Prijs:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
@@ -129,21 +138,21 @@ const SongDetail =(props) => {
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider theme={theme}>
+                <ListItem style={styles.bottomBorder} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Publicatiedatum:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{formatDate(releaseDate)}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider theme={theme}>
+                <ListItem style={styles.bottomBorder} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Land:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{country}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
-                <ListItem bottomDivider theme={theme}>
+                <ListItem style={styles.bottomBorder} theme={theme}>
                     <ListItem.Content>
                         <ListItem.Title style={styles.text}>Genre:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{primaryGenreName}</ListItem.Subtitle>
