@@ -39,7 +39,7 @@ const ArtistDetail = (props) => {
     useEffect(()=>{
         setState(true)
         fetch(url+artistName).then(res => res.json()).then(data =>{
-                console.log(data)
+            //console.log(data)
             setSongs(data.results);
             setState(false)
         });
