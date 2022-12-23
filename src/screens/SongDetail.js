@@ -104,7 +104,7 @@ const SongDetail =(props) => {
                         <ListItem.Title style={styles.text}>Prijs:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(trackViewUrl)}>
-                        <Text style={styles.text}>Klik hier om een het liedje te bekijken op Apple Music</Text>
+                        <Text style={styles.text}>Klik hier om het liedje te bekijken op Apple Music</Text>
                         </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>

@@ -137,7 +137,7 @@ const Home = (props) => {
                             Artist: {song.artistName}
                             </Text>
                             <Text style={styles.text} onPress={()=>goToSong(song)}>
-                            Song title: {song.trackName} {song.trackId}
+                            Song title: {song.trackName}
                             </Text>
                         </View>
                         {favoriet != undefined ? song.trackId == favoriet.trackId ? <Image style={styles.starimage} source={require('../../assets/staricon.png')}/> : null : null}
