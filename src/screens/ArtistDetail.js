@@ -4,10 +4,12 @@ import {useState, useEffect} from 'react';
 import { ScrollView, View, Text, StyleSheet, Linking, TouchableOpacity, ActivityIndicator, Image } from "react-native";
 
 import themeStyle from "../styles/theme.style";
+
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
 
 const ArtistDetail = (props) => {
+    
     const theme = useContext(themeContext)
 
     const url = 'https://itunes.apple.com/search?media=music&limit=200&term='
@@ -57,7 +59,11 @@ const ArtistDetail = (props) => {
             padding: themeStyle.PADDING,
             borderColor: theme.BOTTOM_BORDER_COLOR
         },
-         
+        link:{
+            color: theme.LINK_COLOR,
+            textDecorationLine : 'underline',
+            padding : themeStyle.PADDING
+        },
         view: {
             backgroundColor: theme.PRIMARY_COLOR,
             width: '100%',
@@ -74,15 +80,14 @@ const ArtistDetail = (props) => {
         },
         rowView :{
             flexDirection: 'row',
-            
         }
-        
     })
+    
     return (
         <View style={styles.view}>
         <Text style={styles.title}>Alle liedjes van {artistName}</Text>
         <TouchableOpacity onPress={()=> openUrl(artistViewUrl)}>
-            <Text style={styles.text}>Klik hier om meer over {artistName} te weten te komen</Text>
+            <Text style={styles.link}>Klik hier om meer over {artistName} te weten te komen</Text>
         </TouchableOpacity>
         {spinner}
         <ScrollView style={styles.view}>

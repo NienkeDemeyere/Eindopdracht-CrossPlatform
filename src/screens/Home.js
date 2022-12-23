@@ -1,16 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { ScrollView, View, Text, StyleSheet, Image, Button, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { TextInput } from "react-native";
 import CustomButton from "../config/customButton";
 
 import themeStyle from "../styles/theme.style";
+
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
 import favorietContext from "../config/favorietContext";
 
 const Home = (props) => {
+
     const theme = useContext(themeContext)
     const favoriet = useContext(favorietContext)
 
@@ -33,22 +35,26 @@ const Home = (props) => {
         setState(true)
         setMessage("")
         fetch(url + songTitle).then(res => res.json()).then(data  => {
+
             if(data.results && data.results.length > 0 ){
                 setSongs(data.results);
             }
             else if (data.results){
                 setSongs([])
-                setMessage("Geen liedjes gevonden")
+                setMessage("Geen liedjes gevonden.")
             }
-            else{
-                setMessage("Onbestaande artiest of liedje ingevuld.")
+            else {
+                setSongs([])
+                setMessage("Er ging iets mis.")
             }
 
             setState(false)
 
         }).catch(error =>{
+
             setState(false)
             setMessage(`Er ging iets fout bij het ophalen van de liedjes: ${error}`)
+            
         });
     }
     const spinner = state ? (

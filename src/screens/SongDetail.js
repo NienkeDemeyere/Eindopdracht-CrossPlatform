@@ -4,13 +4,13 @@ import { useContext } from "react";
 import { ScrollView, View, Image, StyleSheet, Linking, Text } from "react-native";
 import {ListItem } from "react-native-elements";
 import { TouchableOpacity } from "react-native";
+import CustomButton from "../config/customButton";
 
 import { EventRegister } from 'react-native-event-listeners';
 import favorietContext from "../config/favorietContext";
-
-import CustomButton from "../config/customButton";
-import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
+
+import themeStyle from "../styles/theme.style";
 
 const SongDetail =(props) => {
     const theme = useContext(themeContext)
@@ -39,7 +39,7 @@ const SongDetail =(props) => {
         return formattedDate
     }
     const styles = StyleSheet.create({
-        
+    
         bottomBorder:{
             borderBottomWidth: themeStyle.BOTTOM_BORDER_SIZE,
             borderColor : theme.BOTTOM_BORDER_COLOR,
@@ -80,7 +80,8 @@ const SongDetail =(props) => {
             color: theme.PRIMARY_TEXT_COLOR
         },
         link:{
-            color: theme.LINK_COLOR
+            color: theme.LINK_COLOR,
+            textDecorationLine : 'underline'
         },
         starimage:{
             height: 30,
@@ -93,11 +94,10 @@ const SongDetail =(props) => {
             justifyContent: "center"
         }
     })
+    
     return (
         <ScrollView style={styles.view}>
             <View style={styles.rowView}>
-
-            
             <Image style={styles.image} source={{uri: artworkUrl100}}/>
             {favoriet != undefined && song.trackId == favoriet.trackId ? <Image style={[styles.starimage, {alignSelf: "center"}]} source={require('../../assets/staricon.png')}/> : <CustomButton style={{alignSelf:"center"}} onPressed={()=>instellenAlsFavoriet(song)}>Stel in als lievelingsliedje</CustomButton>}
             </View>
@@ -116,7 +116,7 @@ const SongDetail =(props) => {
                         <ListItem.Title style={styles.text}>Titel van het nummer:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{trackName}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(previewUrl)}>
-                        <Text style={styles.text}>Klik hier om een preview te downloaden</Text>
+                        <Text style={styles.link}>Klik hier om een preview te downloaden</Text>
                         </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>
@@ -133,7 +133,7 @@ const SongDetail =(props) => {
                         <ListItem.Title style={styles.text}>Prijs:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{(song.currency == 'USD' ? '\u0024': '\u20A0') + trackPrice}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(trackViewUrl)}>
-                        <Text style={styles.text}>Klik hier om het liedje te bekijken op Apple Music</Text>
+                        <Text style={styles.link}>Klik hier om het liedje te bekijken op Apple Music</Text>
                         </TouchableOpacity>
                     </ListItem.Content>
                 </ListItem>

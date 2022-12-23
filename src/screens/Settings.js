@@ -1,21 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Switch } from "react-native-elements";
 
 import { EventRegister } from 'react-native-event-listeners';
 import favorietContext from "../config/favorietContext";
-
-import themeStyle from "../styles/theme.style";
 import themeContext from "../styles/themeContext";
 import { useContext } from "react";
+
+import themeStyle from "../styles/theme.style";
 
 const Settings = () => {
     const theme = useContext(themeContext)
     const favoriet = useContext(favorietContext)
-
-    console.log(favoriet)
 
     const [mode, setMode] = useState(false)
     
@@ -39,13 +37,6 @@ const Settings = () => {
             width: '100%',
             height: '100%'
         },
-        button:{
-            padding: themeStyle.PADDING,
-            backgroundColor: theme.PRIMARY_COLOR,
-            color : theme.SECONDARY_COLOR,
-            width : themeStyle.BUTTON_WIDTH,
-            height: themeStyle.BUTTON_HEIGHT
-        },
         text:{
             color: theme.PRIMARY_TEXT_COLOR
         },
@@ -60,10 +51,7 @@ const Settings = () => {
                 EventRegister.emit("changeTheme", value)}}/> 
             <Text style={styles.subtitle}>Jouw lievelingsliedje:</Text>
             {favoriet != undefined ? <Text style={styles.text}>Lievelingsliedje: {favoriet.trackName} van {favoriet.artistName}</Text> : <Text style={styles.text}>Je hebt nog geen lievelingsliedje gekozen</Text>}
-            
         </View>
-        
     )
-    
 }
 export default Settings;
