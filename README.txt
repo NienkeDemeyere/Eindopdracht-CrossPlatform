@@ -1,8 +1,9 @@
-info over de url: 'https://itunes.apple.com/search?media=music&limit=200&term=exampleTerm'
+info over de url van de api: 'https://itunes.apple.com/search?media=music&limit=200&term=exampleTerm'
       [website]/[zoek]?[enkel liedjes]&[toon max 200 resutlaten]&[zoekterm=songTitle]
       enkel liedjes: want je kan ook boeken en films vinden via deze api
       max 200 resultaten: standaard staat het op 100, dat vond ik net iets te weinig
       zoekterm=songTitle: wordt ingevuld in het input veld op de home pagina
+github repo: https://github.com/NienkeDemeyere/Eindopdracht-CrossPlatform
 
 Handleiding;
 wanneer je de app start, kom je op het Homescherm.

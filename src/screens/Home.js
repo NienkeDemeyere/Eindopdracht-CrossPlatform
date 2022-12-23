@@ -134,10 +134,10 @@ const Home = (props) => {
                         <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
                         <View style={styles.columView}>
                             <Text style={styles.text} onPress={()=>goToArtist(song)}>
-                            Artist: {song.artistName}
+                            Artiest: {song.artistName}
                             </Text>
                             <Text style={styles.text} onPress={()=>goToSong(song)}>
-                            Song title: {song.trackName}
+                            Titel van het nummer: {song.trackName}
                             </Text>
                         </View>
                         {favoriet != undefined ? song.trackId == favoriet.trackId ? <Image style={styles.starimage} source={require('../../assets/staricon.png')}/> : null : null}

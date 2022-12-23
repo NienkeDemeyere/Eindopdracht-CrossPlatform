@@ -86,7 +86,7 @@ const ArtistDetail = (props) => {
             .map(song=> (
                 <View style={[styles.rowView, styles.border]} key={song.trackId} >
                     <Image style={styles.albumImage} source={{uri: song.artworkUrl100}}/>
-                    <Text style={styles.text} onPress={()=>goToSong(song)}>Song title: {song.trackName}</Text>
+                    <Text style={styles.text} onPress={()=>goToSong(song)}>Titel van het nummer: {song.trackName}</Text>
                 </View> 
             ))}
             </View>

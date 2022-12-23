@@ -15,8 +15,10 @@ import themeContext from "../styles/themeContext";
 const SongDetail =(props) => {
     const theme = useContext(themeContext)
     const favoriet = useContext(favorietContext)
+
     const song = props.route.params.song
     const {artistName, trackName, collectionName, artworkUrl100, trackPrice, releaseDate, country, primaryGenreName,previewUrl, trackViewUrl} = props.route.params.song;
+    
     const instellenAlsFavoriet= (song) =>{
         props.navigation.navigate('Settings')
         EventRegister.emit("changeFavorite", song)
@@ -32,6 +34,10 @@ const SongDetail =(props) => {
         );
       }
 
+    const formatDate = (date) =>{
+        const formattedDate = date.slice(0, -1).replace("T", " ");
+        return formattedDate
+    }
     const styles = StyleSheet.create({
         
         border:{
@@ -76,7 +82,7 @@ const SongDetail =(props) => {
                 <TouchableOpacity onPress={()=> goToArtist()}>
                     <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title style={styles.text}>Artist:</ListItem.Title>
+                        <ListItem.Title style={styles.text}>Artiest:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{artistName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
@@ -84,7 +90,7 @@ const SongDetail =(props) => {
                 </TouchableOpacity>
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title style={styles.text}>Song:</ListItem.Title>
+                        <ListItem.Title style={styles.text}>Titel van het nummer:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{trackName}</ListItem.Subtitle>
                         <TouchableOpacity onPress={()=> openUrl(previewUrl)}>
                         <Text style={styles.text}>Klik hier om een preview te downloaden</Text>
@@ -94,7 +100,7 @@ const SongDetail =(props) => {
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title style={styles.text}>Collection:</ListItem.Title>
+                        <ListItem.Title style={styles.text}>Collectie:</ListItem.Title>
                         <ListItem.Subtitle style={styles.text}>{collectionName}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
@@ -111,8 +117,8 @@ const SongDetail =(props) => {
 
                 <ListItem bottomDivider topDivider theme={theme}>
                     <ListItem.Content>
-                        <ListItem.Title style={styles.text}>Release date:</ListItem.Title>
-                        <ListItem.Subtitle style={styles.text}>{releaseDate}</ListItem.Subtitle>
+                        <ListItem.Title style={styles.text}>Publicatiedatum:</ListItem.Title>
+                        <ListItem.Subtitle style={styles.text}>{formatDate(releaseDate)}</ListItem.Subtitle>
                     </ListItem.Content>
                 </ListItem>
 
