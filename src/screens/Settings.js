@@ -48,15 +48,16 @@ const Settings = () => {
         },
         text:{
             color: theme.PRIMARY_TEXT_COLOR
-        }
+        },
+        
     })
     return (
         <View style={styles.view}>
             <Text style={styles.title}>Beheer hier je instellingen</Text>
             <Text style={styles.text}>{mode == true ? "Lightmode" : "Darkmode"}</Text>
             <Switch value={mode} onValueChange={(value)=>{
-            setMode((value)=> !value)
-            EventRegister.emit("changeTheme", value)}}/>
+                setMode((value)=> !value)
+                EventRegister.emit("changeTheme", value)}}/> 
             <Text style={styles.subtitle}>Jouw lievelingsliedje:</Text>
             {favoriet != undefined ? <Text style={styles.text}>Lievelingsliedje: {favoriet.trackName} van {favoriet.artistName}</Text> : <Text style={styles.text}>Je hebt nog geen lievelingsliedje gekozen</Text>}
             
