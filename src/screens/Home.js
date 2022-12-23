@@ -59,9 +59,9 @@ const Home = (props) => {
 
     const styles = StyleSheet.create({
         input:{
-           padding: themeStyle.PADDING,
+            padding: themeStyle.PADDING,
             color: theme.PRIMARY_TEXT_COLOR,
-            flex : 4
+            flex : 4,
         },
         title:{
             fontSize: themeStyle.FONT_SIZE_TITLE,
@@ -118,7 +118,7 @@ const Home = (props) => {
             <Text style={styles.title}>Zoek jouw favoriete liedje</Text>
             <Image style={styles.image} source={require('../../assets/music.jpg')}></Image>
             <View style={styles.rowView}>
-                <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm'></TextInput>
+                <TextInput style={styles.input} value={songTitle} onChangeText={changeSongTitle} placeholder='Zet hier je zoekterm' placeholderTextColor={theme.PRIMARY_TEXT_COLOR}></TextInput>
                 <CustomButton style={{flex:2}} onPressed={onSearchPressed}>Zoek</CustomButton>
             </View>
             
