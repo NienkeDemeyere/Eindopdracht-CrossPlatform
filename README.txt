@@ -30,11 +30,8 @@ wanneer je de app start, kom je op het Homescherm.
       SongDetail
             op dit scherm zie je alle info over het liedje.
             je kan er het liedje instellen als favoriet. wanneer je op die button klikt, wordt je naar het scherm Instellingen gebracht.
+            je kan ook een preview beluisteren door op de link 'klik hier om een preview te downloaden' te klikken
+            ook heb je de mogelijkheid om het liedje te bekijken op apple music door op de link 'Klik hier om het liedje te bekijken op apple music' te klikken
+            je hebt ook de mogelijkheid om op de naam van de artiest te klikken. hierdoor word je opnieuw naar het scherm "ArtistDetail" gebracht
       Instellingen
             hier zie je je favoriete liedje, en heb je de mogelijkheid om darkmode of lightmode te gebruiken
-      SongDetail
-            wanneer je terug keert naar SongDetail, kan je ook een preview beluisteren door op de link 'klik hier om een preview te downloaden' te klikken
-            ook heb je de mogelijkheid om het liedje te bekijken op apple music door op de link 'Klik hier om het liedje te bekijken op apple music'
-            je hebt ook de mogelijkheid om op de naam van de artiest te klikken. hierdoor wordt je opnieuw naar het scherm "ArtistDetail" gebracht
-
-
